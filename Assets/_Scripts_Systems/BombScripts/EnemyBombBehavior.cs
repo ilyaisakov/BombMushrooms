@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombBehavior : MonoBehaviour
+public class EnemyBombBehavior : MonoBehaviour
 {
 
     MeshRenderer BombMesh;
@@ -21,6 +21,7 @@ public class BombBehavior : MonoBehaviour
         BombCollider = GetComponent<CapsuleCollider>();
         explosionFx.gameObject.SetActive(false);
         trailFx.gameObject.SetActive(true);
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -30,7 +31,7 @@ public class BombBehavior : MonoBehaviour
 
     void StartExplosion()
     {
-        SetDamage();
+        //SetDamage();
         //fx
         explosionFx.gameObject.SetActive(true);
         trailFx.gameObject.SetActive(false);
@@ -39,15 +40,18 @@ public class BombBehavior : MonoBehaviour
 
     }
 
-    void SetDamage()
+    private void FixedUpdate()
+    {
+        
+    }
+
+    /*void SetDamage()
     {
         Collider[] collidersInRadius = Physics.OverlapSphere(transform.position, expRadius);
 
         foreach (Collider enemies in collidersInRadius)          
         {
-            EnemyHealth enemyHlz = enemies.GetComponent<EnemyHealth>();
-            EnemyHealthAI enemyHlzAI = enemies.GetComponent<EnemyHealthAI>();
-            PlayerHealth playerHealth = enemies.GetComponent<PlayerHealth>();
+            EnemyHealth enemyHlz = enemies.GetComponent<EnemyHealth>();          
             if (enemyHlz != null)
             {
                 Transform enemyPos = enemies.GetComponent<Transform>();
@@ -55,21 +59,7 @@ public class BombBehavior : MonoBehaviour
 
                 enemyHlz.SetDamage(Mathf.CeilToInt((expRadius - distance) + damageBomb));
             }
-            if (enemyHlzAI != null)
-            {
-                Transform enemyPos = enemies.GetComponent<Transform>();
-                distance = Vector3.Distance(transform.position, enemyPos.position);
-
-                enemyHlzAI.SetDamage(Mathf.CeilToInt((expRadius - distance) + damageBomb));
-            }
-            if (playerHealth != null)
-            {
-                Transform enemyPos = enemies.GetComponent<Transform>();
-                distance = Vector3.Distance(transform.position, enemyPos.position);
-
-                playerHealth.SetDamage(Mathf.CeilToInt((expRadius - distance) + damageBomb));
-            }
-
+              
         }
-    }
+    }*/
 }

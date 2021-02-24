@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] int StartHealth = 100;
     private int Health;
-    [SerializeField] float respawnTime = 5f;
+    [SerializeField] float respawnTime = 0f;
     [SerializeField] HealthBar healthBar;
-    [SerializeField] BoxCollider enemyCollider;
-    [SerializeField] MeshRenderer enemyMesh;
+    Vector3 startPosition;
+    [SerializeField] CharacterController CharController;
+
 
 
     void Start()
     {
+        startPosition = gameObject.transform.position;
         Respawn();
     }
 
@@ -29,10 +31,10 @@ public class EnemyHealth : MonoBehaviour
 
     void Dead()
     {
-        enemyCollider.enabled = false;
-        enemyMesh.enabled = false;
-        healthBar.gameObject.SetActive(false);
 
+        CharController.gameObject.SetActive(false);
+        gameObject.transform.position = startPosition;
+        CharController.gameObject.SetActive(true);
         Invoke("Respawn", respawnTime);
     }
 
@@ -40,9 +42,6 @@ public class EnemyHealth : MonoBehaviour
     {
         Health = StartHealth;
         healthBar.SetMaxHealth(Health);
-        healthBar.gameObject.SetActive(true);
-        enemyCollider.enabled = true;
-        enemyMesh.enabled = true;
 
     }
 }
